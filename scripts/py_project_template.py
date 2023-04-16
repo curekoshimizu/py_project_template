@@ -49,11 +49,16 @@ def create_project(project_name: str, author: str, email: str, project_root: Pat
 @click.option("--author", prompt=True, default=_NAME_DEFAULT, help="Author name")
 @click.option("--email", prompt=True, default=_EMAIL_DEFAULT, help="Author email")
 @click.option("--path", default=None, type=Path, help="Project directory path")
-def main(project_name: str, author: str, email: str, path: Optional[Path]) -> None:
+@click.option("--root", type=Path, help="root directory path")
+def main(project_name: str, author: str, email: str, path: Optional[Path], root: Path) -> None:
+    assert root.exists(), f"Root directory '{root}' does not exist"
+    print("root dir:", root)
     if path is None:
         while True:
             try:
                 p = Path(input("input path: "))
+                if not p.is_absolute():  # 入力されたパスが絶対パスの場合
+                    p = root.joinpath(p)
             except Exception as e:
                 print("error: ", e)
                 continue
