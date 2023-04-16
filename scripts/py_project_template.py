@@ -48,7 +48,7 @@ def create_project(project_name: str, author: str, email: str, project_root: Pat
 @click.option("--author", prompt=True, default=_NAME_DEFAULT, help="Author name")
 @click.option("--email", prompt=True, default=_EMAIL_DEFAULT, help="Author email")
 @click.option("--path", prompt=True, default=Path.cwd(), type=Path, help="Project directory path")
-def main(project_name: str, author: str, email: str, path: Path) -> None:  # type: ignore
+def main(project_name: str, author: str, email: str, path: Path) -> None:
     path = path.absolute()
     click.echo(f"Creating project '{project_name}' by '{author}' ('{email}') in '{path}'")
     create_project(project_name, author, email, path / project_name)

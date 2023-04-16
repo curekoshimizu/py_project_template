@@ -2,10 +2,9 @@ version: '3'
 
 tasks:
   default:
-    desc: lint and test
+    desc: lint
     cmds:
       - task: lint
-      - task: test
 
   lint:
     desc: lint all
@@ -34,8 +33,3 @@ tasks:
     desc: lint mypy
     cmds:
       - poetry run mypy .
-
-  test:
-    desc: pytest
-    cmds:
-      - poetry run pytest .
