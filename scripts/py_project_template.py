@@ -35,6 +35,7 @@ def create_project(project_name: str, author: str, email: str, project_root: Pat
     _copy_file(_ASSET_DIR / "setup.cfg", project_root / "setup.cfg", project_name, author, email)
     _copy_file(_ASSET_DIR / "pyproject.toml", project_root / "pyproject.toml", project_name, author, email)
     _copy_file(_ASSET_DIR / "Taskfile.yaml", project_root / "Taskfile.yaml", project_name, author, email)
+    _copy_file(_ASSET_DIR / ".gitignore", project_root / ".gitignore", project_name, author, email)
 
     # create package directory
     target_dir = project_root / project_name
