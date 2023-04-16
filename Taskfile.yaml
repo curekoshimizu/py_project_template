@@ -1,0 +1,41 @@
+version: '3'
+
+tasks:
+  default:
+    desc: lint and test
+    cmds:
+      - task: lint
+      - task: test
+
+  lint:
+    desc: lint all
+    cmds:
+      - task: black
+      - task: isort 
+      - task: flake8
+      - task: mypy
+
+  black:
+    desc: lint black
+    cmds:
+      - poetry run black .
+
+  isort:
+    desc: lint isort
+    cmds:
+      - poetry run isort .
+
+  flake8:
+    desc: lint flake8
+    cmds:
+      - poetry run flake8 .
+
+  mypy:
+    desc: lint mypy
+    cmds:
+      - poetry run mypy .
+
+  test:
+    desc: pytest
+    cmds:
+      - poetry run pytest .
