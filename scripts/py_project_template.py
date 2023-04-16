@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 
 from pathlib import Path
+from typing import Optional
 
 import click
 
@@ -47,9 +48,20 @@ def create_project(project_name: str, author: str, email: str, project_root: Pat
 @click.option("--project_name", prompt=True, help="Project name")
 @click.option("--author", prompt=True, default=_NAME_DEFAULT, help="Author name")
 @click.option("--email", prompt=True, default=_EMAIL_DEFAULT, help="Author email")
-@click.option("--path", prompt=True, default=Path.cwd(), type=Path, help="Project directory path")
-def main(project_name: str, author: str, email: str, path: Path) -> None:
+@click.option("--path", prompt=True, default=None, type=Path, help="Project directory path")
+def main(project_name: str, author: str, email: str, path: Optional[Path]) -> None:
+    if path is None:
+        while True:
+            try:
+                p = Path(input("input path: "))
+            except Exception as e:
+                print("error: ", e)
+                continue
+            break
+        path = p
+
     path = path.absolute()
+    print("target path: ", path)
     click.echo(f"Creating project '{project_name}' by '{author}' ('{email}') in '{path}'")
     create_project(project_name, author, email, path / project_name)
     click.echo("Done.")
