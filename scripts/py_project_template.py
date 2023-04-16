@@ -48,7 +48,7 @@ def create_project(project_name: str, author: str, email: str, project_root: Pat
 @click.option("--project_name", prompt=True, help="Project name")
 @click.option("--author", prompt=True, default=_NAME_DEFAULT, help="Author name")
 @click.option("--email", prompt=True, default=_EMAIL_DEFAULT, help="Author email")
-@click.option("--path", prompt=True, default=None, type=Path, help="Project directory path")
+@click.option("--path", default=None, type=Path, help="Project directory path")
 def main(project_name: str, author: str, email: str, path: Optional[Path]) -> None:
     if path is None:
         while True:
