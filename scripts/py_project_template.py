@@ -1,7 +1,6 @@
 #!/usr/bin/env python
 
 from pathlib import Path
-from typing import Optional
 
 import click
 
@@ -46,27 +45,15 @@ def create_project(project_name: str, author: str, email: str, project_root: Pat
 
 
 @click.command()
-@click.option("--project_name", prompt=True, help="Project name")
+@click.argument("proj_path", nargs=1)
 @click.option("--author", prompt=True, default=_NAME_DEFAULT, help="Author name")
 @click.option("--email", prompt=True, default=_EMAIL_DEFAULT, help="Author email")
-@click.option("--path", default=None, type=Path, help="Project directory path")
-@click.option("--root", type=Path, help="root directory path")
-def main(project_name: str, author: str, email: str, path: Optional[Path], root: Path) -> None:
-    assert root.exists(), f"Root directory '{root}' does not exist"
-    print("root dir:", root)
-    if path is None:
-        while True:
-            try:
-                p = Path(input("input path: "))
-                if not p.is_absolute():  # 入力されたパスが絶対パスの場合
-                    p = root.joinpath(p)
-            except Exception as e:
-                print("error: ", e)
-                continue
-            break
-        path = p
+def main(proj_path: str, author: str, email: str) -> None:
+    project_path = Path(proj_path)
+    root = project_path.parent
+    project_name = project_path.name
 
-    path = path.absolute()
+    path = root.absolute()
     print("target path: ", path)
     click.echo(f"Creating project '{project_name}' by '{author}' ('{email}') in '{path}'")
     create_project(project_name, author, email, path / project_name)
